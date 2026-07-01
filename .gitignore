@@ -34,3 +34,8 @@ frontend/dist/
 Thumbs.db
 backend/datasets/
 backend/data/uploads/
+
+# Environment
+.env
+*.env
+backend/app/.env

@@ -1,90 +1,42 @@
-import { Activity, CheckCircle2, Clock } from "lucide-react";
-
 function SummaryBanner({ prediction }) {
-  if (!prediction || !prediction.detections?.length) return null;
-
-  const topDetection = prediction.detections[0];
+  const detection = prediction.detections?.[0];
 
   return (
-    <div
-      className="
-      rounded-[32px]
-      bg-white
-      border
-      border-slate-200
-      shadow-[0_20px_60px_rgba(15,23,42,.06)]
-      p-8
-    "
-    >
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-
-        {/* Diagnosis */}
+    <div className="bg-white rounded-3xl shadow-md p-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
         <div>
-          <p className="text-sm text-slate-500 mb-2">
-            Diagnosis
-          </p>
+          <p className="text-gray-500 text-sm">Diagnosis</p>
 
-          <h2 className="text-3xl font-bold text-slate-900">
-            {topDetection.disease}
+          <h2 className="text-4xl font-bold text-slate-900 mt-2">
+            {detection?.disease || "Normal"}
           </h2>
         </div>
 
-        {/* Confidence */}
         <div>
-          <p className="text-sm text-slate-500 mb-2">
-            Confidence
-          </p>
+          <p className="text-gray-500 text-sm">Confidence</p>
 
-          <h2 className="text-3xl font-bold text-violet-600">
-            {topDetection.confidence}%
+          <h2 className="text-4xl font-bold text-violet-600 mt-2">
+            {detection?.confidence || 0}%
           </h2>
         </div>
 
-        {/* Status */}
-        <div className="flex items-center gap-3">
+        <div>
+          <p className="text-gray-500 text-sm">Status</p>
 
-          <CheckCircle2
-            className="text-green-500"
-            size={28}
-          />
+          <div className="flex items-center mt-3">
+            <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
 
-          <div>
-
-            <p className="text-sm text-slate-500">
-              Status
-            </p>
-
-            <p className="font-semibold">
-              Analysis Complete
-            </p>
-
+            <span className="font-semibold">Analysis Complete</span>
           </div>
-
         </div>
 
-        {/* Inference */}
+        <div>
+          <p className="text-gray-500 text-sm">Inference</p>
 
-        <div className="flex items-center gap-3">
-
-          <Clock
-            className="text-indigo-500"
-            size={28}
-          />
-
-          <div>
-
-            <p className="text-sm text-slate-500">
-              Inference
-            </p>
-
-            <p className="font-semibold">
-              {prediction.technical?.inference_time || "--"}
-            </p>
-
-          </div>
-
+          <h2 className="text-4xl font-bold text-slate-900 mt-2">
+            {prediction.technical?.inference_time_ms || "--"} ms
+          </h2>
         </div>
-
       </div>
     </div>
   );
